@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Valentine Adel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&family=Sacramento&display=swap');
+        body { font-family: 'Quicksand', sans-serif; overflow: hidden; margin: 0; }
+        .font-aesthetic { font-family: 'Sacramento', cursive; }
+        .slide { display: none; height: 100vh; width: 100vw; position: absolute; top: 0; left: 0; }
+        .active { display: flex; animation: fadeIn 1.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .bg-gradient { background: linear-gradient(135deg, #fff5f5 0%, #fed7e2 100%); }
+        button { cursor: pointer; transition: all 0.3s; }
+    </style>
+</head>
+<body class="bg-gradient text-gray-800">
+
+    <audio id="bgMusic" loop>
+        <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="slide1" class="slide active flex-col items-center justify-center p-6 text-center">
+        <div class="mb-6 animate-bounce text-6xl">💌</div>
+        <h1 class="text-3xl font-bold text-pink-600 mb-2">Haloo, Reisya Adelia Sihotang</h1>
+        <p class="text-gray-500 mb-8">Gue punya sesuatu buat lo, nyalain volumenya ya..</p>
+        <button onclick="startExperience()" class="bg-pink-500 hover:bg-pink-600 text-white px-10 py-4 rounded-full shadow-xl font-bold tracking-wide">
+            BUKA SURAT ❤️
+        </button>
+    </div>
+
+    <div id="slide2" class="slide flex-col items-center justify-center p-8">
+        <div class="max-w-lg bg-white/60 backdrop-blur-md p-10 rounded-[40px] shadow-2xl border border-white text-center">
+            <h2 class="font-aesthetic text-5xl text-pink-500 mb-8">Happy Valentine, Adel!</h2>
+            <p class="text-gray-700 leading-relaxed text-lg mb-6 italic">
+                "Adeelll, morninggg happyy valentinee yaaa maaff kalau di valentine ini kita belum jadi apa apa ataupun gw belum bisa kasih apa apa, tapi harapan gua di valentine ini cuma 1 dell, kita bisa terus bersama sama buat kedepannya, ngejalanin kehidupan kita bareng bareng maupun suka dan duka."
+            </p>
+            <p class="text-gray-700 leading-relaxed text-lg italic">
+                "Makasihh jugaa yaa elu selama ini udah sabar ngadepin gua dan sabar buat nunggu guaa, love uu so much dell"
+            </p>
+            <button onclick="nextSlide(3)" class="mt-8 bg-pink-400 text-white px-8 py-2 rounded-full hover:bg-pink-500 transition shadow-md">
+                Next...
+            </button>
+        </div>
+    </div>
+
+    <div id="slide3" class="slide flex-col items-center justify-center p-6">
+        <h2 class="text-3xl font-bold text-pink-600 mb-10 text-center">Will you be my Valentine forever, Adel? 🌹</h2>
+        <div class="flex gap-6 relative w-full justify-center items-center h-20">
+            <button id="yesBtn" onclick="finalSurprise()" class="bg-green-500 text-white px-12 py-4 rounded-2xl font-bold shadow-lg text-xl z-10">YES!</button>
+            <button id="noBtn" onmouseover="moveButton()" class="bg-gray-400 text-white px-12 py-4 rounded-2xl font-bold shadow-lg text-xl transition-all duration-150">NO</button>
+        </div>
+        <p class="mt-20 text-pink-400 italic font-aesthetic text-4xl">- From Mario</p>
+    </div>
+
+    <script>
+        const music = document.getElementById('bgMusic');
+
+        function startExperience() {
+            music.play().catch(e => console.log("Audio play blocked, but continuing..."));
+            nextSlide(2);
+        }
+
+        function nextSlide(n) {
+            document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+            document.getElementById('slide' + n).classList.add('active');
+        }
+
+        function moveButton() {
+            const btn = document.getElementById('noBtn');
+            const x = Math.random() * (window.innerWidth - btn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - btn.offsetHeight);
+            btn.style.position = 'fixed';
+            btn.style.left = x + 'px';
+            btn.style.top = y + 'px';
+        }
+
+        function finalSurprise() {
+            alert('I love you so much, Reisya Adelia! ❤️');
+            for(let i=0; i<50; i++) {
+                setTimeout(createHeart, i * 100);
+            }
+        }
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.innerHTML = ['❤️', '💖', '🌸', '✨'][Math.floor(Math.random() * 4)];
+            heart.style.position = 'fixed';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.top = '100vh';
+            heart.style.fontSize = (Math.random() * 30 + 15) + 'px';
+            heart.style.zIndex = '100';
+            heart.style.pointerEvents = 'none';
+            heart.style.transition = `all ${Math.random() * 3 + 2}s linear`;
+            document.body.appendChild(heart);
+            
+            setTimeout(() => {
+                heart.style.transform = `translateY(-110vh) rotate(${Math.random() * 360}deg)`;
+                heart.style.opacity = '0';
+            }, 50);
+            
+            setTimeout(() => heart.remove(), 5000);
+        }
+    </script>
+</body>
+</html>
